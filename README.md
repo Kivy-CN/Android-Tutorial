@@ -81,6 +81,73 @@ C++ 和 Rust 也是 Android 开发中可以使用的编程语言。
 ```
 
 
+## 2.2 替换 gradle 源为阿里云
+
+```Bash
+nano ~/.gradle/init.gradle
+```
+
+然后输入下面的文本后保存
+
+```html
+allprojects{
+  repositories {
+    def ALIYUN_REPOSITORY_URL = 'https://maven.aliyun.com/nexus/content/groups/public'
+    def ALIYUN_JCENTER_URL = 'https://maven.aliyun.com/nexus/content/repositories/jcenter'
+    all { ArtifactRepository repo ->
+      if(repo instanceof MavenArtifactRepository){
+        def url = repo.url.toString()
+        if (url.startsWith('https://repo1.maven.org/maven2') || url.startsWith('https://repo1.maven.org/maven2')) {
+          project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_REPOSITORY_URL."
+          remove repo
+        }
+        if (url.startsWith('https://jcenter.bintray.com/') || url.startsWith('https://jcenter.bintray.com/')) {
+          project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_JCENTER_URL."
+          remove repo
+        }
+      }
+    }
+    maven {
+      url ALIYUN_REPOSITORY_URL
+      url ALIYUN_JCENTER_URL
+    }
+  }
+
+
+  buildscript{
+    repositories {
+      def ALIYUN_REPOSITORY_URL = 'https://maven.aliyun.com/nexus/content/groups/public'
+      def ALIYUN_JCENTER_URL = 'https://maven.aliyun.com/nexus/content/repositories/jcenter'
+      all { ArtifactRepository repo ->
+        if(repo instanceof MavenArtifactRepository){
+          def url = repo.url.toString()
+          if (url.startsWith('https://repo1.maven.org/maven2') || url.startsWith('https://repo1.maven.org/maven2')) {
+            project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_REPOSITORY_URL."
+            remove repo
+          }
+          if (url.startsWith('https://jcenter.bintray.com/') || url.startsWith('https://jcenter.bintray.com/')) {
+            project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_JCENTER_URL."
+            remove repo
+          }
+        }
+      }
+      maven {
+        url ALIYUN_REPOSITORY_URL
+        url ALIYUN_JCENTER_URL
+      }
+    }
+  }
+}
+```
+
+## 2.3 新建一个 Hello World 项目
+
+按照集成开发环境的提示逐步操作即可。
+
+如果遇到`dependency 2.7.5 requires 34 or later`之类的报错，需要修改`app`下的`build.gradle`文件中：
+```Bash
+compileSdk 34
+```
 
 # 3 BeeWare
 
@@ -89,7 +156,11 @@ C++ 和 Rust 也是 Android 开发中可以使用的编程语言。
 建议不要用 Anaconda3，而是要系统自带的 Python3，避免一些环境变量配置出问题。
 ```Bash
 sudo apt-get install python3-cairo build-essential git pkg-config python3-dev python3-venv libgirepository1.0-dev libcairo2-dev gir1.2-webkit2-4.0 libcanberra-gtk3-module
-pip install beeware
+pip install beeware briefcase 
+briefcase new
+briefcase dev
+briefcase build Android
+briefcase run Android
 ```
 
 
