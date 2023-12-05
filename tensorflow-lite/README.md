@@ -24,7 +24,8 @@ This application should be run on a physical Android device.
 
 This sample demonstrates how to use TensorFlow Lite with Java. If
 you would like to see an example using Kotlin, please go to the
-[android sample directory](../android).
+
+[//]: # ([android sample directory]&#40;../android&#41;.)
 
 
 ## Build the demo using Android Studio
