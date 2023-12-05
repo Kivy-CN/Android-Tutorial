@@ -34,12 +34,6 @@ Android 应用程序的开发需要依赖以下几个工具:
 * Android Stuido，专门用于开发 Android 应用程序的集成开发环境。
 
 
-```text
-腾讯： https://mirrors.cloud.tencent.com/AndroidSDK/
-
-阿里： https://mirrors.aliyun.com/android.googlesource.com/
-```
-
 
 ## 1.3 编程语言的选择
 
@@ -74,3 +68,74 @@ C++ 和 Rust 也是 Android 开发中可以使用的编程语言。
 第三部分，使用 Python 语言，开发一个简单的跨平台移动应用程序，进行文本的变换和简单加密。具体的框架包括[`Briefcase`](https://briefcase.readthedocs.io/)、[`The BeeWare Project`](https://beeware.org/)。
 
 
+# 2 Android Studio 配置
+
+## 2.1 替换 Android SDK 源为阿里云
+
+使用下面两个源：
+
+```text
+腾讯： https://mirrors.cloud.tencent.com/AndroidSDK/
+
+阿里： https://mirrors.aliyun.com/android.googlesource.com/
+```
+
+
+## 2.2 替换 gradle 源为阿里云
+
+```Bash
+nano ~/.gradle/init.gradle
+```
+
+然后输入下面的文本后保存
+
+```html
+allprojects{
+  repositories {
+    def ALIYUN_REPOSITORY_URL = 'https://maven.aliyun.com/nexus/content/groups/public'
+    def ALIYUN_JCENTER_URL = 'https://maven.aliyun.com/nexus/content/repositories/jcenter'
+    all { ArtifactRepository repo ->
+      if(repo instanceof MavenArtifactRepository){
+        def url = repo.url.toString()
+        if (url.startsWith('https://repo1.maven.org/maven2') || url.startsWith('https://repo1.maven.org/maven2')) {
+          project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_REPOSITORY_URL."
+          remove repo
+        }
+        if (url.startsWith('https://jcenter.bintray.com/') || url.startsWith('https://jcenter.bintray.com/')) {
+          project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_JCENTER_URL."
+          remove repo
+        }
+      }
+    }
+    maven {
+      url ALIYUN_REPOSITORY_URL
+      url ALIYUN_JCENTER_URL
+    }
+  }
+
+
+  buildscript{
+    repositories {
+      def ALIYUN_REPOSITORY_URL = 'https://maven.aliyun.com/nexus/content/groups/public'
+      def ALIYUN_JCENTER_URL = 'https://maven.aliyun.com/nexus/content/repositories/jcenter'
+      all { ArtifactRepository repo ->
+        if(repo instanceof MavenArtifactRepository){
+          def url = repo.url.toString()
+          if (url.startsWith('https://repo1.maven.org/maven2') || url.startsWith('https://repo1.maven.org/maven2')) {
+            project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_REPOSITORY_URL."
+            remove repo
+          }
+          if (url.startsWith('https://jcenter.bintray.com/') || url.startsWith('https://jcenter.bintray.com/')) {
+            project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_JCENTER_URL."
+            remove repo
+          }
+        }
+      }
+      maven {
+        url ALIYUN_REPOSITORY_URL
+        url ALIYUN_JCENTER_URL
+      }
+    }
+  }
+}
+```
