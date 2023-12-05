@@ -11,44 +11,51 @@ import matplotlib
 
 
 def build(app):
-
+    # 创建一个文本输入框和一个只读的文本输入框
     # in_text = toga.TextInput()
     # out_text = toga.TextInput(readonly=True)
-
+    
+    # 创建一个多行文本输入框和一个只读的多行文本输入框，并给它们分别设置id属性
     in_text = toga.MultilineTextInput(id='int')
     out_text = toga.MultilineTextInput(id='out')
 
+    # 创建一个标签组件用于显示输入框的标签和输出框的标签
     in_label = toga.Label("Input", style=Pack(text_align=LEFT))
     out_label = toga.Label("Output", style=Pack(text_align=LEFT))
 
+    # 创建一个容器组件
     box = toga.Box()
 
-
+    # 定义一个内部函数，用于将输入框的值经过Magic函数处理后赋值给输出框的值
     def Trans(widget):
         try:
             out_text.value = Magic(in_text.value)
-        except ValueError: 
+        except ValueError:
             out_text.value = "???"
 
+    # 创建一个按钮组件，并将内部函数Trans设置为点击按钮后的操作
     button = toga.Button("Trans", on_press=Trans)
 
+    # 将各个组件添加到容器组件中
     box.add(in_label)
     box.add(in_text)
     box.add(out_label)
     box.add(out_text)
     box.add(button)
-    
 
+    # 设置容器组件的样式
     box.style.update(direction=COLUMN, padding=10)
-    
 
+    # 设置输入框和输出框的样式
     in_text.style.update(flex=1)
     out_text.style.update(flex=1)
     in_label.style.update(width=100)
     out_label.style.update(width=100)
 
+    # 设置按钮的样式
     button.style.update(padding=15)
 
+    # 返回容器组件
     return box
 
 
