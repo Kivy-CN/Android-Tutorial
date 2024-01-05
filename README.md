@@ -61,12 +61,11 @@ C++ 和 Rust 也是 Android 开发中可以使用的编程语言。
 
 本次课程，分为三个部分。
 
-第一部分体验并使用 Kotlin 编程语言，创建一个最简单的应用程序，初步了解 Android 移动端应用开发。
+第一部分体验并使用 Android Studio，创建一个最简单的应用程序，初步了解 Android 移动端应用开发。
 
-第二部分使用 Java 编程语言，编译并安装一个基于 TensorFlow Lite 的样例程序，初步体验移动设备上的机器学习和计算机视觉应用。
+第二部分，使用 Python 语言，运行一个简单的跨平台移动应用程序，进行文本的变换和简单的数值计算。具体的框架包括[`Briefcase`](https://briefcase.readthedocs.io/)、[`The BeeWare Project`](https://beeware.org/)。
 
-第三部分，使用 Python 语言，开发一个简单的跨平台移动应用程序，进行文本的变换和简单加密。具体的框架包括[`Briefcase`](https://briefcase.readthedocs.io/)、[`The BeeWare Project`](https://beeware.org/)。
-
+第三部分，使用 Python 语言，开发一个简单的跨平台移动应用程序，进行自定义的复合交互逻辑。
 
 # 2 Android Studio 配置
 
@@ -151,16 +150,32 @@ compileSdk 34
 
 # 3 BeeWare
 
-## 3.1 基础环境
+## 3.1 Python环境
 
 建议不要用 Anaconda3，而是要系统自带的 Python3，避免一些环境变量配置出问题。
+
 ```Bash
 sudo apt-get install python3-cairo build-essential git pkg-config python3-dev python3-venv libgirepository1.0-dev libcairo2-dev gir1.2-webkit2-4.0 libcanberra-gtk3-module
-pip install beeware briefcase 
+```
+
+## 3.2 依赖组件
+
+```Bash
+pip install beeware briefcase toga
+```
+
+## 3.3 创建项目
+
+```Bash
 briefcase new
 briefcase dev
+```
+## 3.4 运行和打包
+
+```Bash
 briefcase build Android
 briefcase run Android
 ```
+
 
 
