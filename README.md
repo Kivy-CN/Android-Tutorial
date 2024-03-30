@@ -2,6 +2,10 @@
 
 A extremly simple guide to try Android Development.
 
+```Bash
+VBoxManage modifyvm "Ubuntu"  --nested-hw-virt on
+```
+
 
 # 1 Android 初步了解
 
