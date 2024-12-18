@@ -159,7 +159,7 @@ compileSdk 34
 建议不要用 Anaconda3，而是要系统自带的 Python3，避免一些环境变量配置出问题。
 
 ```Bash
-sudo apt-get install python3-cairo build-essential git pkg-config python3-dev python3-venv libgirepository1.0-dev libcairo2-dev gir1.2-webkit2-4.0 libcanberra-gtk3-module
+sudo apt-get install python3-cairo build-essential git pkg-config python3-dev python3-venv libgirepository1.0-dev libcairo2-dev gir1.2-webkit2 libcanberra-gtk3-module
 ```
 
 ## 3.2 依赖组件
@@ -181,5 +181,10 @@ briefcase build Android
 briefcase run Android
 ```
 
+
+```Bash
+# 以模拟器方式运行
+/home/hadoop/.cache/briefcase/tools/android_sdk/emulator/emulator "@beePhone" -dns-server 8.8.8.8 -no-accel 
+```
 
 
